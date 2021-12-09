@@ -17,7 +17,7 @@ name: Publish Bitso libraries to GitHub Packages
 on:
   pull_request:
     branches:
-    -  master
+    - master
     paths:
     - '**/build.gradle'
   push:
@@ -30,7 +30,6 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  
   publish:
     name: publish
     runs-on: ubuntu-latest
