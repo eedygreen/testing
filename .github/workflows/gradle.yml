@@ -1,34 +1,19 @@
 name: Publish Bitso libraries to GitHub Packages
 
-# This workflow is based on bitso libraries from versions.gradle.
-# Please, do the followings to make this work:
-#   1. Add 'gradle/publish.gradle' script inside libraries' build.gradle.
-#   2. Add your new library inside 'bitso' block in versions.gradle.
-# Finally, the trigger only happens if build.gradle has changed.
-
-# How does this workflow work:
-# - Gets libraries from the bitso block of versions.gradle.
-# - Gets the affected packages from the PR and compares them to the libraries in versions.gradle.
-# - If there is any match between the affected libraries and packages (build.gradle),
-#   publishes the package. If the 'version' in build.gradle remains the same,
-#   we'll experience a 409 Conflict error.
-# - All of this mentioned above will happen after merge.
-
 on:
   pull_request:
-    branches: [ main ]
-    paths:
-      - '**/build.gradle'
+    branches:
+    - master
+
   push:
-    branches: [ main ]
-    paths:
-      - '**/build.gradle'
+    branches: 
+    - master
+
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  
   publish:
     name: publish
     runs-on: ubuntu-latest
@@ -46,7 +31,7 @@ jobs:
           distribution: "adopt"
 
       - name: Publish with Gradle
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: ./gradlew publish 
         working-directory: crypto-common-protobuf
         env:
