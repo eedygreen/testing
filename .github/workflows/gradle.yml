@@ -16,11 +16,11 @@ name: Publish Bitso libraries to GitHub Packages
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - '**/build.gradle'
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
       - '**/build.gradle'
 
@@ -46,7 +46,7 @@ jobs:
           distribution: "adopt"
 
       - name: Publish with Gradle
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         run: ./gradlew publish 
         working-directory: crypto-common-protobuf
         env:
